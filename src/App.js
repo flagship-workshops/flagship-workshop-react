@@ -1,25 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {movies} from './movies.js'
+import {MovieItem} from './MovieItem.js'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class movieList extends React.Component{
+  render() {
+    return movies.map(movie =>
+      (
+        <div>
+        <MovieItem title={movie.title} releaseYear = {movie.releaseYear} rating = {movie.rating} country = {movie.country} />
+      </div>
+      )
+    )
+  }
 }
-
-export default App;
