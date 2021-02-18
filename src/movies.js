@@ -10,5 +10,11 @@ export const movies = [
         releaseYear: 1939,
         rating: "G",
         country: "USA"
+    },
+    {
+        title: "Skyfall",
+        releaseYear: 2012,
+        rating: "PG-13",
+        country:"United Kingdom"
     }
 ]

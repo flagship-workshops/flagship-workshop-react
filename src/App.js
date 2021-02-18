@@ -4,12 +4,28 @@ import {MovieItem} from './MovieItem.js'
 
 export default class movieList extends React.Component{
   render() {
-    return movies.map(movie =>
-      (
-        <div>
-        <MovieItem title={movie.title} releaseYear = {movie.releaseYear} rating = {movie.rating} country = {movie.country} />
-      </div>
-      )
-    )
-  }
+	const movieList = movies.map(movie => 
+		(
+      <tr>
+        <td><MovieItem title={movie.title} /></td>
+        <td><MovieItem releaseYear = {movie.releaseYear} /></td>
+        <td><MovieItem rating = {movie.rating} /></td>
+        <td><MovieItem country = {movie.country} /></td>
+      </tr>
+		)
+	)
+	return (
+			<div>
+        <table>
+          <tr>
+            <th>Title</th>
+            <th>Release Year</th>
+            <th>Rating</th>
+            <th>Country</th>
+          </tr>
+            {movieList}
+        </table>
+	    </div>
+	)
+}
 }
