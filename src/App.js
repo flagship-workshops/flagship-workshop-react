@@ -19,7 +19,7 @@ export const localhostSplitConfig = {
 
 export default function App() {
   return (
-    <SplitFactory config={localhostSplitConfig} >
+    <SplitFactory config={localhostSplitConfig} updateOnSdkUpdate={true} >
       <SplitTreatments /* names: list of features to evaluate */ names={['movie_filter']} >{
         ({ isReady, treatments }) => {
           if (isReady) {
