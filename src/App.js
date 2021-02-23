@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { movies } from './movies.js'
 import MovieList from './MovieList.js'
 import { SplitFactory, SplitTreatments } from '@splitsoftware/splitio-react';
 
+// Filter that accepts only USA movies
 const usaFilter = (movie) => movie.country === 'USA';
 
-const defaultFilter = (movie) => !usaFilter(movie);
+// Filter that accepts all movies
+const allMoviesFilter = () => true;
 
 export const localhostSplitConfig = {
   core: {
@@ -13,27 +15,37 @@ export const localhostSplitConfig = {
     key: 'anonymous_user',
   },
   features: {
-    'movie_filter': 'USA',
+    'movie_filter': 'default',
   }
 }
 
 export default function App() {
+
+  const [useDefaultFilter, setDefaultFilter] = useState(true);
+
   return (
     <SplitFactory config={localhostSplitConfig} updateOnSdkUpdate={true} >
       <SplitTreatments /* names: list of features to evaluate */ names={['movie_filter']} >{
         ({ isReady, treatments }) => {
           if (isReady) {
-            // once the SDK is ready, `treatments` contains the values of the evaluated list of features
+            // once the SDK is ready, `treatments` contains valid values of the evaluated list of features
 
-            // we use the 'movie_filter' feature treatment to choose a filter in order to customize the content we show to the user
-            let filter = defaultFilter;
+            // set the default filter to use based on the checkbox
+            let filter = useDefaultFilter ? allMoviesFilter : usaFilter;
 
-            // if the treatment value is 'USA' it will shows the movies with 'USA' as the country.
-            // Otherwise, the default filter will exclude movies with 'USA' as country
+            // if the treatment value is 'USA', we use the USA filter instead of the default one.
             if (treatments['movie_filter'].treatment === 'USA') filter = usaFilter;
 
             const filteredMovies = movies.filter(filter);
-            return (<MovieList movies={filteredMovies} />);
+            return (
+              <div>
+                <div>
+                  <input type="checkbox" id="filter" checked={useDefaultFilter} onChange={() => { setDefaultFilter(!useDefaultFilter) }} />
+                  <label htmlFor="filter">Show International Movies</label>
+                </div>
+                <MovieList movies={filteredMovies} />
+              </div>
+            );
           }
 
           return (<div>Loading SDK...</div>);
