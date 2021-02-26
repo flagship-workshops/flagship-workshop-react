@@ -1,12 +1,25 @@
-import React from 'react';
-import { movies } from './movies.js'
-import MovieList from './MovieList.js'
+import React, { useState } from 'react';
+import Login from './login/Login'
+import MovieListApp from './movie/MovieListApp';
 
 export default function App() {
 
+  const [login, setLogin] = useState(true);
+  const [email, setEmail] = useState('');
+
+  const getEmail = (email) => {
+    setEmail(email);
+    setLogin(false);
+  }
+
+  const logout = () => {
+    setLogin(true);
+  }
+
   return (
     <div>
-      <MovieList movies={movies} />
+      {login && <Login handleClick={getEmail}/>}
+      {!login && <MovieListApp email={email} handleClick={logout}/>}
     </div>
   )
 }

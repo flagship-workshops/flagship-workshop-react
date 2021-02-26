@@ -2,7 +2,8 @@ import React from 'react';
 import { MovieItem } from './MovieItem.js'
 
 export default function MovieList({ movies }) {
-  const movieList = movies.map(movie => (<MovieItem {...movie} />))
+  const movieList = movies.map(movie => (<MovieItem {...movie} key={Math.random()}/>))
+  
   return (
     <div>
       <table>
