@@ -1,4 +1,4 @@
-export const movies = [
+const usaMovies = [
     {
         title: "The Shining",
         releaseYear: 1980,
@@ -10,11 +10,17 @@ export const movies = [
         releaseYear: 1939,
         rating: "G",
         country: "USA"
-    },
-    {
-        title: "Skyfall",
-        releaseYear: 2012,
-        rating: "PG-13",
-        country:"United Kingdom"
     }
 ]
+
+// const internationalMovies = [
+//     {
+//         title: "Skyfall",
+//         releaseYear: 2012,
+//         rating: "PG-13",
+//         country: "United Kingdom"
+//     }
+// ]
+
+// export const movies = usaMovies.concat(internationalMovies);
+export const movies = usaMovies;

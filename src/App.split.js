@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Login from './login/Login';
-import SplitMovieListApp from './movie/SplitMovieListApp';
+import SplitMovieListApp from './movie/MovieListApp.split';
 
 export default function App() {
 
