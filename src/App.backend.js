@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { movies } from './movies.js'
+// import { movies } from './movies.js'
 import MovieList from './MovieList.js'
 import { SplitFactory, SplitTreatments } from '@splitsoftware/splitio-react';
-// import axios from 'axios';
+import axios from 'axios';
 
 // Filter that accepts only USA movies
 const usaFilter = (movie) => movie.country === 'USA';
@@ -23,16 +23,16 @@ export const localhostSplitConfig = {
 export default function App() {
 
   const [useDefaultFilter, setDefaultFilter] = useState(true);
-  // const [movieData, setMovieData] = useState([]);
+  const [movieData, setMovieData] = useState([]);
 
-  // useEffect(() => {
-  //   getMovieData();
-  // }, []);
+  useEffect(() => {
+    getMovieData();
+  }, []);
 
-  // const getMovieData = async () => {
-  //   const response = await axios.get("https://<your url>.codesandbox.io/api/v1/movies");
-  //   setMovieData(response.data.movies);
-  // };
+  const getMovieData = async () => {
+    const response = await axios.get("https://<your url>.codesandbox.io/api/v1/movies");
+    setMovieData(response.data.movies);
+  };
 
   return (
     <SplitFactory config={localhostSplitConfig} updateOnSdkUpdate={true} >
@@ -47,8 +47,8 @@ export default function App() {
             // if the treatment value is 'USA', we use the USA filter instead of the default one.
             if (treatments['movie_filter'].treatment === 'USA') filter = usaFilter;
 
-            const filteredMovies = movies.filter(filter);
-            // const filteredMovies = movieData.filter(filter);
+            // const filteredMovies = movies.filter(filter);
+            const filteredMovies = movieData.filter(filter);
             return (
               <div>
                 <div>
