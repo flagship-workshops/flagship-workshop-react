@@ -1,8 +1,9 @@
 import React from 'react';
 import { movies } from './movies.js'
 import MovieList from './MovieList.js'
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import './MovieList.css';
 
 export default function MovieListApp(props) {
 
@@ -12,7 +13,7 @@ export default function MovieListApp(props) {
     }
 
     return (
-        <div>
+        <div className="MovieList">
             <h2>Hello {props.email}</h2>
             <MovieList movies={movies} />
             <Form onSubmit={handleSubmit}>

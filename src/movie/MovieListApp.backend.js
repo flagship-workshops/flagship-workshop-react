@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import MovieList from './MovieList.js'
 import { SplitFactory, SplitTreatments } from '@splitsoftware/splitio-react';
 import axios from 'axios';
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import './MovieList.css';
 
 export default function SplitMovieListApp(props) {
 
@@ -60,16 +61,15 @@ export default function SplitMovieListApp(props) {
 
                         const filteredMovies = movies.filter(filter);
                         return (
-                            <div>
+                            <div className="MovieList">
                                 <h2>Hello {props.email}</h2>
                                 {treatment !== 'USA' &&
                                     <div>
-                                        <input
-                                            type="checkbox" id="filter"
+                                        <label><input
+                                            type="checkbox"
                                             checked={useAllFilter}
                                             onChange={() => { setUseAllFilter(!useAllFilter) }}
-                                        />
-                                        <label htmlFor="filter">Show International Movies</label>
+                                        /> Show International Movies</label>
                                     </div>
                                 }
                                 <MovieList movies={filteredMovies} />

@@ -1,0 +1,10 @@
+@media all and (min-width: 480px) {
+  .Movie {
+    padding: 60px 0;
+  }
+
+  .Movie table {
+    margin: 0 auto;
+    max-width: 800px;
+  }
+}
