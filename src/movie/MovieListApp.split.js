@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 export default function SplitMovieListApp(props) {
 
     // Filter that accepts only USA movies
-    const usaFilter = (movie) => movie.country === 'USA';
+    const usaMoviesFilter = (movie) => movie.country === 'USA';
 
     // Filter that accepts all movies
     const allMoviesFilter = () => true;
@@ -20,15 +20,15 @@ export default function SplitMovieListApp(props) {
 
     const splitConfig = {
         core: {
-            authorizationKey: '<your split auth key>',
+            authorizationKey: 'localhost', // update to real authorization key
             key: props.email,
         },
         features: {
-            'movie_filter': 'default',
+            'movie_filter': 'USA',
         }
     }
 
-    const [useDefaultFilter, setDefaultFilter] = useState(true);
+    const [useAllFilter, setUseAllFilter] = useState(false);
 
     return (
         <SplitFactory config={splitConfig} updateOnSdkUpdate={true} >
@@ -37,20 +37,31 @@ export default function SplitMovieListApp(props) {
                     if (isReady) {
                         // once the SDK is ready, `treatments` contains valid values of the evaluated list of features
 
-                        // set the default filter to use based on the checkbox
-                        let filter = useDefaultFilter ? allMoviesFilter : usaFilter;
+                        let treatment = treatments['movie_filter'].treatment;
+                        console.log(`treatment: ${treatment}`);
 
-                        // if the treatment value is 'USA', we use the USA filter instead of the default one.
-                        if (treatments['movie_filter'].treatment === 'USA') filter = usaFilter;
+                        let filter;
+                        if (treatment !== 'USA' && useAllFilter) {
+                            filter = allMoviesFilter;
+                        } else {
+                            filter = usaMoviesFilter;
+                            setUseAllFilter(false);
+                        }
 
                         const filteredMovies = movies.filter(filter);
                         return (
                             <div>
                                 <h2>Hello {props.email}</h2>
-                                <div>
-                                    <input type="checkbox" id="filter" checked={useDefaultFilter} onChange={() => { setDefaultFilter(!useDefaultFilter) }} />
-                                    <label htmlFor="filter">Show International Movies</label>
-                                </div>
+                                {treatment !== 'USA' &&
+                                    <div>
+                                        <input 
+                                            type="checkbox" id="filter" 
+                                            checked={useAllFilter} 
+                                            onChange={() => { setUseAllFilter(!useAllFilter) }} 
+                                        />
+                                        <label htmlFor="filter">Show International Movies</label>
+                                    </div>
+                                }
                                 <MovieList movies={filteredMovies} />
                                 <Form onSubmit={handleSubmit}>
                                     <Button block size="lg" type="submit">
