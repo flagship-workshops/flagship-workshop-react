@@ -33,12 +33,12 @@ export default function SplitMovieListApp(props) {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        getMovieData();
+        getMovies(props.email);
     }, []);
 
-    const getMovieData = async () => {
-        const response = await axios.get("https://<your url>.codesandbox.io/api/v1/movies");
-        setMovies(response.data.movies);
+    const getMovies = async () => {
+        const response = await axios.get('https://<your url>.codesandbox.io/api/v1/movies/' + props.email);
+        await setMovies(response.data.movies);
     };
 
     return (
