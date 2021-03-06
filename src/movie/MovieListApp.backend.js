@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import MovieList from './MovieList.js'
 import { SplitFactory, SplitTreatments } from '@splitsoftware/splitio-react';
-import { splitConfig } from '../split.config.js';
+import { splitConfig } from '../split.config';
+import MovieList from './MovieList'
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';

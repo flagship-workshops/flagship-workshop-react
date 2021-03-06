@@ -1,6 +1,6 @@
 import React from 'react';
-import { movies } from './movies.js'
-import MovieList from './MovieList.js'
+import { movies } from './movies'
+import MovieList from './MovieList'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './MovieList.css';
