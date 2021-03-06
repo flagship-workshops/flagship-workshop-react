@@ -13,14 +13,14 @@ const usaMovies = [
     }
 ]
 
-// const internationalMovies = [
-//     {
-//         title: "Skyfall",
-//         releaseYear: 2012,
-//         rating: "PG-13",
-//         country: "United Kingdom"
-//     }
-// ]
+const internationalMovies = [
+    {
+        title: "Skyfall",
+        releaseYear: 2012,
+        rating: "PG-13",
+        country: "United Kingdom"
+    }
+]
 
 // export const movies = usaMovies.concat(internationalMovies);
 export const movies = usaMovies;
