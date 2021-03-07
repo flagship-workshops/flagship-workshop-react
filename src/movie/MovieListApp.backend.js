@@ -35,7 +35,9 @@ export default function SplitMovieListApp(props) {
     }, []);
 
     const getMovies = async () => {
-        const response = await axios.get('https://<your url>.codesandbox.io/api/v1/movies/' + props.email);
+        const response = await axios.get(
+            splitConfig.backend.baseUrl + splitConfig.backend.moviesUri + props.email
+        );
         await setMovies(response.data.movies);
     };
 
