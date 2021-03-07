@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SplitFactory, SplitTreatments } from '@splitsoftware/splitio-react';
-import { splitConfig } from '../split.config';
+import { appConfig } from '../app.config';
 import MovieList from './MovieList'
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
@@ -10,7 +10,7 @@ import './MovieList.css';
 export default function SplitMovieListApp(props) {
 
     // Filter that accepts only USA movies
-    const usaMoviesFilter = (movie) => movie.country === splitConfig.usaTreatment;
+    const usaMoviesFilter = (movie) => movie.country === appConfig.split.usaTreatment;
 
     // Filter that accepts all movies
     const allMoviesFilter = () => true;
@@ -22,7 +22,7 @@ export default function SplitMovieListApp(props) {
 
     const splitFactoryConfig = {
         core: {
-            authorizationKey: splitConfig.authorizationKey,
+            authorizationKey: appConfig.split.authorizationKey,
             key: props.email,
         }
     }
@@ -36,23 +36,23 @@ export default function SplitMovieListApp(props) {
 
     const getMovies = async () => {
         const response = await axios.get(
-            splitConfig.backend.baseUrl + splitConfig.backend.moviesUri + props.email
+            appConfig.backend.baseUrl + appConfig.backend.moviesUri + props.email
         );
         await setMovies(response.data.movies);
     };
 
     return (
         <SplitFactory config={splitFactoryConfig} updateOnSdkUpdate={true} >
-            <SplitTreatments /* names: list of features to evaluate */ names={[splitConfig.treatmentName]} >{
+            <SplitTreatments /* names: list of features to evaluate */ names={[appConfig.split.treatmentName]} >{
                 ({ isReady, treatments }) => {
                     if (isReady) {
                         // once the SDK is ready, `treatments` contains valid values of the evaluated list of features
 
-                        let treatment = treatments[splitConfig.treatmentName].treatment;
+                        let treatment = treatments[appConfig.split.treatmentName].treatment;
                         console.log(`treatment: ${treatment}`);
 
                         let filter;
-                        if (treatment === splitConfig.intlTreatment && useAllFilter) {
+                        if (treatment === appConfig.split.intlTreatment && useAllFilter) {
                             filter = allMoviesFilter;
                         } else {
                             filter = usaMoviesFilter;
@@ -63,7 +63,7 @@ export default function SplitMovieListApp(props) {
                         return (
                             <div className="MovieList">
                                 <h2>Hello {props.email}</h2>
-                                {treatment === splitConfig.intlTreatment &&
+                                {treatment === appConfig.split.intlTreatment &&
                                     <div>
                                         <label><input
                                             type="checkbox"
